@@ -89,10 +89,10 @@ else
             exit -1
         fi
 	fi
-	fastlane ios get_cer
-	fastlane ios getPush
-	fastlane ios get_adhoc_profile
-	fastlane ios update_info
-	fastlane ios set_code_sign
+	# fastlane ios get_cer
+	# fastlane ios getPush
+	# fastlane ios get_adhoc_profile
+	# fastlane ios update_info
+	# fastlane ios set_code_sign
 fi
 
