@@ -1,18 +1,18 @@
 #!/bin/bash
 
-baseAppleIdentifier="tydinfo@tydtech.com"
-baseAppName="droiautoapp"
-baseBundleId="com.droi.droiautoapp"
-baseTeamId="5K93T4P36N"
-basePsw="Joseph17969213"
+baseAppleIdentifier="APPLE_ID=tydinfo@tydtech.com"
+baseAppName="APP_NAME=droiautoapp"
+baseBundleId="BUNDLE_ID=com.droi.droiautoapp"
+baseTeamId="TEAM_ID=5K93T4P36N"
+basePsw="FASTLANE_PASSWORD=Joseph17969213"
 
 if [ $# -eq 5 ] ;then
-	echo "input param is bundleid "
-	bundleid=$1
-    appname=$2
-    appleid=$3
-    teamid=$4
-	applepsw=$5
+
+	bundleid="BUNDLE_ID="$1""
+    appname="APP_NAME="$2""
+    appleid="APPLE_ID="$3""
+    teamid="TEAM_ID="$4""
+	applepsw="FASTLANE_PASSWORD="$5""
 	sed -i "" 's/'"$baseBundleId"'/'"$bundleid"'/g' fastlane/.env
     sed -i "" 's/'"$baseAppName"'/'"$appname"'/g' fastlane/.env
 	sed -i "" 's/'"$baseAppleIdentifier"'/'"$appleid"'/g' fastlane/.env
