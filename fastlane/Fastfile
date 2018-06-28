@@ -1,0 +1,123 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Description of what the lane does"
+  lane :custom_lane do
+    puts ENV['BUNDLE_ID']+"111"
+  end
+
+  desc "get cer"
+  lane:get_cer do
+    cert(
+     development:false,
+     username:ENV['APPLE_ID'],
+     output_path:"cer"
+    )
+  end
+
+  lane :createApp do
+    produce(
+      # skip_itc:true,
+      app_identifier: ENV['BUNDLE_ID'],
+      app_name: ENV['APP_NAME'],
+      language: 'English',
+      app_version: '1.0',
+      enable_services: {
+        app_group: "on",
+        push_notification: "on",
+      }
+    )
+  end
+
+  lane :getPush do
+    pem(
+      force: true,
+      save_private_key: false,
+      pem_name: 'production',
+      username: ENV['APPLE_ID'],
+      app_identifier: ENV['BUNDLE_ID'],
+      output_path:"APNs"
+    )
+  end
+
+
+  desc "get adhoc profile"
+  lane:get_adhoc_profile do
+      get_provisioning_profile(
+        adhoc:true,
+        force:true,
+        team_id:ENV['TEAM_ID'],
+        provisioning_name:ENV['BUNDLE_ID']+"_adhoc",
+        output_path:"mobileprovision"
+      )
+    end
+
+
+  desc "update info.plist"
+  lane:update_info do
+    update_info_plist( # update app identifier string
+      xcodeproj:ENV['XCODE_WORKSPACE'],
+      plist_path: "droiautoapp/Info.plist",
+      display_name: ENV['APP_NAME']
+    )
+    update_app_identifier(
+      xcodeproj: ENV['XCODE_WORKSPACE'], # Optional path to xcodeproj, will use the first .xcodeproj if not set
+      plist_path: "droiautoapp/Info.plist", # Path to info plist file, relative to xcodeproj
+      app_identifier: ENV['BUNDLE_ID'] # The App Identifier
+    )
+    end
+
+
+  desc "setting xcode"
+  lane:set_code_sign do
+      automatic_code_signing(
+         # 工程文件所在路径
+         path:ENV['XCODE_WORKSPACE'],
+         # 是否使用自动签名，这里如果是打包的话应该一般都为false吧，默认也是false
+         use_automatic_signing:false,
+         # 打包的team ID， 也就是打包使用的证书中的team ID，这个如果不知道是什么的话可以在xCode中设置好签名用的描述文件后到xcodeproj下的pbxproj文件中搜索“DEVELOPMENT_TEAM”，它的值就是了
+         team_id:ENV['TEAM_ID'],
+         # 这个就不用说了，需要修改的targets
+         targets:ENV['XCODE_SCHEME'],
+         # 用哪种方式打包“iPhone Develop”还是“iPhone Distribution”
+         code_sign_identity:"iPhone Distribution",
+         # 描述文件名称， 也就是使用哪个描述文件打包
+         profile_name:ENV['BUNDLE_ID']+"_adhoc",
+         bundle_identifier:ENV['BUNDLE_ID']
+     )
+    end
+
+    desc "adhoc"
+    lane:adhoc do
+      # set_code_sign
+      gym(
+        configuration: "Release",
+        scheme:"FastlaneAutoTest",
+        clean: true,
+        output_directory: "path/to/dir",
+        output_name: "my-app.ipa", 
+        export_method:"ad-hoc",
+        export_options:{
+          method: "ad-hoc",
+          provisioningProfiles: { 
+            ENV['BUNDLE_ID'] => ENV['BUNDLE_ID']+"__adhoc"
+          }
+        }
+      )
+    end
+end
