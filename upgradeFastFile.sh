@@ -13,11 +13,11 @@ if [ $# -eq 5 ] ;then
     appleid=$3
     teamid=$4
 	applepsw=$5
-	sed -i "" 's/'"$baseBundleId"'/'"$bundleid"'/g' droiautoapp/fastlane/.env
-    sed -i "" 's/'"$baseAppName"'/'"$appname"'/g' droiautoapp/fastlane/.env
-	sed -i "" 's/'"$baseAppleIdentifier"'/'"$appleid"'/g' droiautoapp/fastlane/.env
-	sed -i "" 's/'"$baseTeamId"'/'"$teamid"'/g' droiautoapp/fastlane/.env
-	sed -i "" 's/'"$basePsw"'/'"$applepsw"'/g' droiautoapp/fastlane/.env
+	sed -i "" 's/'"$baseBundleId"'/'"$bundleid"'/g' fastlane/.env
+    sed -i "" 's/'"$baseAppName"'/'"$appname"'/g' fastlane/.env
+	sed -i "" 's/'"$baseAppleIdentifier"'/'"$appleid"'/g' fastlane/.env
+	sed -i "" 's/'"$baseTeamId"'/'"$teamid"'/g' fastlane/.env
+	sed -i "" 's/'"$basePsw"'/'"$applepsw"'/g' fastlane/.env
 
 elif [ $# -eq 0 ];then
 	echo "use default env"
