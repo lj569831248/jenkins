@@ -8,11 +8,11 @@ basePsw="FASTLANE_PASSWORD=Joseph17969213"
 
 if [ $# -eq 5 ] ;then
 
-	bundleid="BUNDLE_ID="$1""
-    appname="APP_NAME="$2""
-    appleid="APPLE_ID="$3""
-    teamid="TEAM_ID="$4""
-	applepsw="FASTLANE_PASSWORD="$5""
+	bundleid="BUNDLE_ID=$1"
+    appname="APP_NAME=$2"
+    appleid="APPLE_ID=$3"
+    teamid="TEAM_ID=$4"
+	applepsw="FASTLANE_PASSWORD=$5"
 	sed -i "" 's/'"$baseBundleId"'/'"$bundleid"'/g' fastlane/.env
     sed -i "" 's/'"$baseAppName"'/'"$appname"'/g' fastlane/.env
 	sed -i "" 's/'"$baseAppleIdentifier"'/'"$appleid"'/g' fastlane/.env
