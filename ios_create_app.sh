@@ -57,12 +57,12 @@ fastlane ios createApp >create_ios_app.log
 if [ $? != 0 ];then
 	echo "create app failed!!!"
 	cat create_ios_app.log
-	upresult=$(updateAppReviewResult ${bundleid} 0 "create app failed in appstore!")
-	if [ $? != 0 ];then
-		echo "------update create app result to baas failed."
-	else
-		echo "------have update create result to baas."	
-	fi 
+	# upresult=$(updateAppReviewResult ${bundleid} 0 "create app failed in appstore!")
+	# if [ $? != 0 ];then
+	# 	echo "------update create app result to baas failed."
+	# else
+	# 	echo "------have update create result to baas."	
+	# fi 
 	exit -1
 else
 #	appstoreid=$(echo $result | grep -r "Connect with ID" | awk -F "Connect with ID" '{print $2}' |sed 's/ //g')
@@ -76,14 +76,14 @@ else
         echo "get  app store ID success"
 	    if [ ${#appstoreid} != 0 ];then
             echo "appstoreid is : "$appstoreid
-            upresult=$(updateAppID $bundleid $appstoreid)
-	        if [ $? != 0 ];then
-                echo "create app successed!"
-	 	        echo "update appstore failed! result: "$upresult
-                exit -1
-	        else
-                echo "update appstoreid to appinfo success!"
-	        fi
+            # upresult=$(updateAppID $bundleid $appstoreid)
+	        # if [ $? != 0 ];then
+            #     echo "create app successed!"
+	 	    #     echo "update appstore failed! result: "$upresult
+            #     exit -1
+	        # else
+            #     echo "update appstoreid to appinfo success!"
+	        # fi
 	    else
             echo "app store id may be wrong!"
             exit -1
