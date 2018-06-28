@@ -57,7 +57,7 @@ fastlane ios createApp >create_ios_app.log
 if [ $? != 0 ];then
 	echo "create app failed!!!"
 	cat create_ios_app.log
-	upresult=$(updateAppReviewResult ${shopid} 0 "create app failed in appstore!")
+	upresult=$(updateAppReviewResult ${bundleid} 0 "create app failed in appstore!")
 	if [ $? != 0 ];then
 		echo "------update create app result to baas failed."
 	else
