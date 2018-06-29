@@ -95,5 +95,6 @@ else
 	fastlane ios get_adhoc_profile
 	fastlane ios update_info
 	fastlane ios set_code_sign
+	fastlane ios adhoc
 fi
 
