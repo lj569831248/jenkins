@@ -6,6 +6,7 @@ appleid=$3
 teamid=$4
 applepsw=$5
 
+#develop
 echo "budleId:${bundleid}"
 echo "appname:${appname}"
 echo "appleid:${appleid}"
