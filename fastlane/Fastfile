@@ -107,7 +107,7 @@ platform :ios do
       # set_code_sign
       gym(
         configuration: "Release",
-        scheme:"FastlaneAutoTest",
+        scheme:ENV['XCODE_SCHEME'],
         clean: true,
         output_directory: "path/to/dir",
         output_name: "my-app.ipa", 
